@@ -52,6 +52,27 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+        // Trading platform specific colors
+        navy: {
+          DEFAULT: '#0D2438',
+          light: '#193C5B',
+          dark: '#071A2A'
+        },
+        teal: {
+          DEFAULT: '#00A9A5',
+          light: '#35D1CE',
+          dark: '#008280'
+        },
+        gold: {
+          DEFAULT: '#F0B90B',
+          light: '#FFCF40',
+          dark: '#CE9D08'
+        },
+        success: {
+          DEFAULT: '#1CB35B',
+          light: '#3DDF7C',
+          dark: '#108745'
+        },
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
