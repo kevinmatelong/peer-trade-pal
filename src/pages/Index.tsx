@@ -1,4 +1,3 @@
-
 import { Navbar } from "@/components/site/navbar";
 import { Footer } from "@/components/site/footer";
 import { HeroSection } from "@/components/site/hero-section";
@@ -6,54 +5,13 @@ import { FeaturesSection } from "@/components/site/features-section";
 import { CTASection } from "@/components/site/cta-section";
 import { CryptoCard } from "@/components/trade/crypto-card";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { CheckCircle2, ChevronRight, Users, Shield, Globe } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
-
-const popularCryptos = [
-  {
-    id: "btc",
-    name: "Bitcoin",
-    symbol: "BTC",
-    logoUrl: "https://cryptologos.cc/logos/bitcoin-btc-logo.svg?v=025",
-    price: 27500,
-    currency: "USD",
-    change24h: 1.23,
-    verified: true,
-  },
-  {
-    id: "eth",
-    name: "Ethereum",
-    symbol: "ETH",
-    logoUrl: "https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=025",
-    price: 1600,
-    currency: "USD",
-    change24h: -0.85,
-    verified: true,
-  },
-  {
-    id: "usdt",
-    name: "Tether",
-    symbol: "USDT",
-    logoUrl: "https://cryptologos.cc/logos/tether-usdt-logo.svg?v=025",
-    price: 1,
-    currency: "USD",
-    change24h: 0.02,
-    verified: true,
-  },
-  {
-    id: "bnb",
-    name: "Binance Coin",
-    symbol: "BNB",
-    logoUrl: "https://cryptologos.cc/logos/bnb-bnb-logo.svg?v=025",
-    price: 220,
-    currency: "USD",
-    change24h: 2.15,
-    verified: true,
-  },
-];
+import { useCryptoPrices } from "@/hooks/use-crypto-prices";
 
 const Index = () => {
+  const { data: cryptoPrices, isLoading } = useCryptoPrices();
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
@@ -63,17 +21,33 @@ const Index = () => {
         <div className="container px-4 py-16 sm:px-6 sm:py-24">
           <div className="text-center">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Popular Cryptocurrencies
+              Live Cryptocurrency Prices
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-              Trade these popular digital assets directly with other users on our secure P2P platform.
+              Track real-time prices of top cryptocurrencies and trade directly with other users on our secure P2P platform.
             </p>
           </div>
 
           <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
-            {popularCryptos.map((crypto) => (
-              <CryptoCard key={crypto.id} {...crypto} />
-            ))}
+            {isLoading ? (
+              Array(4).fill(0).map((_, i) => (
+                <div key={i} className="h-[200px] rounded-lg bg-muted animate-pulse" />
+              ))
+            ) : (
+              cryptoPrices?.slice(0, 4).map((crypto) => (
+                <CryptoCard
+                  key={crypto.id}
+                  id={crypto.id}
+                  name={crypto.name}
+                  symbol={crypto.symbol.toUpperCase()}
+                  logoUrl={crypto.image}
+                  price={crypto.current_price}
+                  currency="USD"
+                  change24h={crypto.price_change_percentage_24h}
+                  verified={true}
+                />
+              ))
+            )}
           </div>
 
           <div className="mt-12 text-center">
