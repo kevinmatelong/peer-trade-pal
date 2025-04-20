@@ -7,6 +7,7 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
+  CommandList,
 } from "@/components/ui/command";
 import {
   Popover,
@@ -57,26 +58,29 @@ export function CryptoSelector({ onSelect, selected }: CryptoSelectorProps) {
       <PopoverContent className="w-[180px] p-0">
         <Command>
           <CommandInput placeholder="Search cryptocurrency..." />
-          <CommandEmpty>No cryptocurrency found.</CommandEmpty>
-          <CommandGroup>
-            {cryptocurrencies.map((crypto) => (
-              <CommandItem
-                key={crypto.value}
-                onSelect={() => {
-                  onSelect(crypto.value);
-                  setOpen(false);
-                }}
-              >
-                <Check
-                  className={cn(
-                    "mr-2 h-4 w-4",
-                    selected === crypto.value ? "opacity-100" : "opacity-0"
-                  )}
-                />
-                {crypto.label}
-              </CommandItem>
-            ))}
-          </CommandGroup>
+          <CommandList>
+            <CommandEmpty>No cryptocurrency found.</CommandEmpty>
+            <CommandGroup>
+              {cryptocurrencies.map((crypto) => (
+                <CommandItem
+                  key={crypto.value}
+                  value={crypto.value}
+                  onSelect={() => {
+                    onSelect(crypto.value);
+                    setOpen(false);
+                  }}
+                >
+                  <Check
+                    className={cn(
+                      "mr-2 h-4 w-4",
+                      selected === crypto.value ? "opacity-100" : "opacity-0"
+                    )}
+                  />
+                  {crypto.label}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
         </Command>
       </PopoverContent>
     </Popover>
