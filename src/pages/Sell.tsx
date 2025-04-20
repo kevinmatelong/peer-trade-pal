@@ -5,6 +5,7 @@ import { Footer } from "@/components/site/footer";
 import { FilterSidebar } from "@/components/trade/filter-sidebar";
 import { MarketListing } from "@/components/trade/market-listing";
 import { Input } from "@/components/ui/input";
+import { CryptoSelector } from "@/components/trade/crypto-selector";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search, Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -117,6 +118,7 @@ const mockListings = [
 export default function Sell() {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState("price-desc");
+  const [selectedCrypto, setSelectedCrypto] = useState("btc");
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -127,30 +129,35 @@ export default function Sell() {
   };
 
   // Sort listings based on selected option
-  const sortedListings = [...mockListings].sort((a, b) => {
-    switch (sortOption) {
-      case "price-asc":
-        return a.price - b.price;
-      case "price-desc":
-        return b.price - a.price;
-      case "amount-asc":
-        return a.availableAmount - b.availableAmount;
-      case "amount-desc":
-        return b.availableAmount - a.availableAmount;
-      case "trades-desc":
-        return b.user.completedTrades - a.user.completedTrades;
-      default:
-        return b.price - a.price;
-    }
-  });
+  const sortedListings = [...mockListings]
+    .filter((listing) => listing.crypto.symbol.toLowerCase() === selectedCrypto.toUpperCase())
+    .sort((a, b) => {
+      switch (sortOption) {
+        case "price-asc":
+          return a.price - b.price;
+        case "price-desc":
+          return b.price - a.price;
+        case "amount-asc":
+          return a.availableAmount - b.availableAmount;
+        case "amount-desc":
+          return b.availableAmount - a.availableAmount;
+        case "trades-desc":
+          return b.user.completedTrades - a.user.completedTrades;
+        default:
+          return b.price - a.price;
+      }
+    });
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
       <div className="container px-4 py-8 flex-1 sm:px-6 sm:py-12">
-        <h1 className="text-3xl font-bold tracking-tight">Sell Bitcoin (BTC)</h1>
+        <div className="flex items-center justify-between">
+          <h1 className="text-3xl font-bold tracking-tight">Sell Crypto P2P</h1>
+          <CryptoSelector selected={selectedCrypto} onSelect={setSelectedCrypto} />
+        </div>
         <p className="mt-2 text-muted-foreground">
-          Find buyers looking to purchase BTC at competitive prices with various payment methods.
+          Find buyers looking to purchase cryptocurrencies at competitive prices with various payment methods.
         </p>
 
         <div className="mt-8 flex items-center justify-between">
