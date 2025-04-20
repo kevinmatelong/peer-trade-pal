@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -14,15 +13,15 @@ export function Navbar() {
         <div className="flex items-center gap-6">
           <Link to="/" className="flex items-center space-x-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-r from-teal to-teal-light">
-              <span className="sr-only">TradePal logo</span>
+              <span className="sr-only">Crypto Sokoni logo</span>
               <svg viewBox="0 0 30 30" className="h-5 w-5 text-white">
                 <path
                   fill="currentColor"
-                  d="M15 3C8.373 3 3 8.373 3 15c0 6.627 5.373 12 12 12s12-5.373 12-12c0-6.627-5.373-12-12-12zm0 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S5 20.523 5 15 9.477 5 15 5zm-2 4v2h4v2h-4v6h-2V7h6v2h-4zm6 4v6h-4v-6h4z"
+                  d="M15 12c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zm0-3c3.314 0 6 2.686 6 6s-2.686 6-6 6-6-2.686-6-6 2.686-6 6-6zm9 0a3 3 0 110 6 3 3 0 010-6zm-18 0a3 3 0 110 6 3 3 0 010-6z"
                 />
               </svg>
             </div>
-            <span className="hidden font-semibold sm:inline-block">TradePal</span>
+            <span className="hidden font-semibold sm:inline-block">Crypto Sokoni</span>
           </Link>
           <nav className="hidden md:flex md:gap-6">
             <Link to="/buy" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">

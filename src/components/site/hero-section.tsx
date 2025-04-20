@@ -13,11 +13,11 @@ export function HeroSection() {
       <div className="container relative z-10 px-4 py-16 sm:px-6 sm:py-24 lg:py-32">
         <div className="mx-auto max-w-4xl text-center">
           <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-            <span className="block">Secure P2P Trading</span>
-            <span className="block text-teal">Simplified for Everyone</span>
+            <span className="block">Crypto Sokoni</span>
+            <span className="block text-teal">Africa's P2P Crypto Marketplace</span>
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-lg sm:text-xl text-gray-300">
-            Buy and sell digital assets directly with other users through a secure, transparent, and user-friendly platform.
+            Trade cryptocurrencies directly with other users. Secure, transparent, and built for the African market.
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <Link to="/buy">
