@@ -9,6 +9,7 @@ import Buy from "./pages/Buy";
 import Sell from "./pages/Sell";
 import Orders from "./pages/Orders";
 import Wallet from "./pages/Wallet";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,7 +26,7 @@ const App = () => (
           <Route path="/sell" element={<Sell />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/wallet" element={<Wallet />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/settings" element={<Settings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

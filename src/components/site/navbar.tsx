@@ -53,6 +53,11 @@ export function Navbar() {
               <User className="h-5 w-5" />
             </Button>
           </Link>
+          <Link to="/settings">
+            <Button variant="ghost" size="icon" className="text-muted-foreground">
+              <User className="h-5 w-5" />
+            </Button>
+          </Link>
           <Button variant="default" size="sm" className="hidden md:flex">
             Sign In
           </Button>
@@ -99,6 +104,13 @@ export function Navbar() {
               onClick={() => setMobileMenuOpen(false)}
             >
               Wallet
+            </Link>
+            <Link
+              to="/settings"
+              className="flex items-center rounded-md px-2 py-1 text-sm font-medium hover:bg-muted"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Settings
             </Link>
             <div className="flex gap-2 pt-2">
               <Button variant="default" size="sm" className="flex-1">
