@@ -1,3 +1,4 @@
+
 import { Navbar } from "@/components/site/navbar";
 import { Footer } from "@/components/site/footer";
 import { HeroSection } from "@/components/site/hero-section";
@@ -5,7 +6,8 @@ import { FeaturesSection } from "@/components/site/features-section";
 import { CTASection } from "@/components/site/cta-section";
 import { CryptoCard } from "@/components/trade/crypto-card";
 import { Button } from "@/components/ui/button";
-import { ChevronRight } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { CheckCircle2, ChevronRight, Globe, Shield, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useCryptoPrices } from "@/hooks/use-crypto-prices";
 
