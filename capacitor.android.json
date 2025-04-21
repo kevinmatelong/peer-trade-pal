@@ -1,0 +1,11 @@
+
+{
+  "name": "peer-trade-pal",
+  "version": "1.0.0",
+  "description": "A trading platform app",
+  "main": "index.js",
+  "scripts": {
+    "android": "npx cap run android",
+    "android-sync": "npx cap sync android"
+  }
+}
