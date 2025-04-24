@@ -1,7 +1,8 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Bell, User, Globe } from "lucide-react";
+import { Menu, X, Bell, User, Globe, Settings } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 export function Navbar() {
@@ -55,15 +56,19 @@ export function Navbar() {
           </Link>
           <Link to="/settings">
             <Button variant="ghost" size="icon" className="text-muted-foreground">
-              <User className="h-5 w-5" />
+              <Settings className="h-5 w-5" />
             </Button>
           </Link>
-          <Button variant="default" size="sm" className="hidden md:flex">
-            Sign In
-          </Button>
-          <Button variant="outline" size="sm" className="hidden md:flex">
-            Register
-          </Button>
+          <Link to="/login">
+            <Button variant="default" size="sm" className="hidden md:flex">
+              Sign In
+            </Button>
+          </Link>
+          <Link to="/register">
+            <Button variant="outline" size="sm" className="hidden md:flex">
+              Register
+            </Button>
+          </Link>
           <Button
             variant="ghost"
             size="icon"
@@ -113,12 +118,16 @@ export function Navbar() {
               Settings
             </Link>
             <div className="flex gap-2 pt-2">
-              <Button variant="default" size="sm" className="flex-1">
-                Sign In
-              </Button>
-              <Button variant="outline" size="sm" className="flex-1">
-                Register
-              </Button>
+              <Link to="/login" className="flex-1">
+                <Button variant="default" size="sm" className="w-full">
+                  Sign In
+                </Button>
+              </Link>
+              <Link to="/register" className="flex-1">
+                <Button variant="outline" size="sm" className="w-full">
+                  Register
+                </Button>
+              </Link>
             </div>
           </nav>
         </div>
