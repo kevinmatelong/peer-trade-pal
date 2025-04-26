@@ -60,12 +60,12 @@ export function Navbar() {
             </Button>
           </Link>
           <Link to="/login">
-            <Button variant="default" size="sm" className="hidden md:flex">
+            <Button variant="default" size="sm" className="hidden md:inline-flex">
               Sign In
             </Button>
           </Link>
           <Link to="/register">
-            <Button variant="outline" size="sm" className="hidden md:flex">
+            <Button variant="outline" size="sm" className="hidden md:inline-flex">
               Register
             </Button>
           </Link>
@@ -118,12 +118,12 @@ export function Navbar() {
               Settings
             </Link>
             <div className="flex gap-2 pt-2">
-              <Link to="/login" className="flex-1">
+              <Link to="/login" className="flex-1" onClick={() => setMobileMenuOpen(false)}>
                 <Button variant="default" size="sm" className="w-full">
                   Sign In
                 </Button>
               </Link>
-              <Link to="/register" className="flex-1">
+              <Link to="/register" className="flex-1" onClick={() => setMobileMenuOpen(false)}>
                 <Button variant="outline" size="sm" className="w-full">
                   Register
                 </Button>
