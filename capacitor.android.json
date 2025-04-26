@@ -1,11 +1,13 @@
 
 {
-  "name": "peer-trade-pal",
-  "version": "1.0.0",
-  "description": "A trading platform app",
-  "main": "index.js",
-  "scripts": {
-    "android": "npx cap run android",
-    "android-sync": "npx cap sync android"
+  "appId": "app.lovable.1265d277700643efaaec07794c11eeaa",
+  "appName": "crypto-sokoni",
+  "webDir": "dist",
+  "android": {
+    "backgroundColor": "#ffffffff"
+  },
+  "server": {
+    "url": "https://1265d277-7006-43ef-aaec-07794c11eeaa.lovableproject.com?forceHideBadge=true",
+    "cleartext": true
   }
 }
