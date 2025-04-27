@@ -10,7 +10,13 @@ const config: CapacitorConfig = {
     cleartext: true
   },
   android: {
-    backgroundColor: "#ffffffff"
+    backgroundColor: "#ffffffff",
+    buildOptions: {
+      keystorePath: 'release-key.keystore',
+      keystoreAlias: 'key0',
+      keystorePassword: 'your_keystore_password',
+      storePassword: 'your_store_password'
+    }
   }
 };
 
