@@ -13,7 +13,8 @@ import Settings from "./pages/Settings";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { View, Text } from 'react-native';
 
 const queryClient = new QueryClient({
   defaultOptions: {

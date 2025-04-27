@@ -2,9 +2,6 @@
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
-import { defineCustomElements } from '@ionic/pwa-elements/loader';
 
-// Call the element loader after the platform has been bootstrapped
-defineCustomElements(window);
-
+// No longer using Capacitor's PWA elements
 createRoot(document.getElementById("root")!).render(<App />);
