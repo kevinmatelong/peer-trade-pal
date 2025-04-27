@@ -14,7 +14,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 import { useEffect, useState } from "react";
-import { View, Text } from 'react-native';
+// Import Text and View from react-native
+import { Platform } from "react-native";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,21 +29,24 @@ const queryClient = new QueryClient({
 const App = () => {
   // Add mobile-specific adjustments
   useEffect(() => {
-    // Set viewport height for mobile devices to handle address bar issues
-    const setMobileHeight = () => {
-      const vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
-    };
+    // Only run in web environment
+    if (Platform.OS === 'web') {
+      // Set viewport height for mobile devices to handle address bar issues
+      const setMobileHeight = () => {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+      };
 
-    setMobileHeight();
-    window.addEventListener('resize', setMobileHeight);
+      setMobileHeight();
+      window.addEventListener('resize', setMobileHeight);
 
-    // Add touchstart listener to improve touch response on mobile
-    document.addEventListener('touchstart', () => {}, { passive: true });
+      // Add touchstart listener to improve touch response on mobile
+      document.addEventListener('touchstart', () => {}, { passive: true });
 
-    return () => {
-      window.removeEventListener('resize', setMobileHeight);
-    };
+      return () => {
+        window.removeEventListener('resize', setMobileHeight);
+      };
+    }
   }, []);
 
   return (
