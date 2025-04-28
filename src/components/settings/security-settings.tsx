@@ -94,8 +94,8 @@ export function SecuritySettings() {
                         maxLength={6}
                         render={({ slots }) => (
                           <InputOTPGroup>
-                            {slots.map((slot, index) => (
-                              <InputOTPSlot key={index} {...slot} index={index} />
+                            {slots && slots.map((slot, index) => (
+                              <InputOTPSlot key={index} {...slot} />
                             ))}
                           </InputOTPGroup>
                         )}
