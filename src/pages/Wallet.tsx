@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Navbar } from "@/components/site/navbar";
 import { Footer } from "@/components/site/footer";
@@ -327,14 +326,12 @@ export default function Wallet() {
           <div className="lg:col-span-1">
             <Card className="h-full">
               <CardHeader className="px-6">
-                {/* FIX: Correctly defining Tabs and using TabsContent within it */}
-                <Tabs value={activeTab} onValueChange={setActiveTab}>
+                <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
                   <TabsList className="grid w-full grid-cols-2">
                     <TabsTrigger value="assets">My Assets</TabsTrigger>
                     <TabsTrigger value="deposit">Deposit</TabsTrigger>
                   </TabsList>
                 
-                  {/* Move TabsContent here, inside the Tabs component */}
                   <TabsContent value="assets" className="mt-4">
                     <div className="relative mb-4">
                       <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -439,9 +436,6 @@ export default function Wallet() {
                   </TabsContent>
                 </Tabs>
               </CardHeader>
-              <CardContent className="px-6">
-                {/* Content moved inside Tabs component above */}
-              </CardContent>
             </Card>
           </div>
         </div>

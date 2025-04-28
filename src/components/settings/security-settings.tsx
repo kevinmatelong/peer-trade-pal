@@ -53,7 +53,7 @@ export function SecuritySettings() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <Tabs value={activeTab} onValueChange={setActiveTab}>
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="mb-4">
               <TabsTrigger value="2fa">Two-Factor Authentication</TabsTrigger>
               <TabsTrigger value="password">Password Requirements</TabsTrigger>
