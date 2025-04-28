@@ -327,115 +327,120 @@ export default function Wallet() {
           <div className="lg:col-span-1">
             <Card className="h-full">
               <CardHeader className="px-6">
-                <Tabs defaultValue="assets" value={activeTab} onValueChange={setActiveTab}>
+                {/* FIX: Correctly defining Tabs and using TabsContent within it */}
+                <Tabs value={activeTab} onValueChange={setActiveTab}>
                   <TabsList className="grid w-full grid-cols-2">
                     <TabsTrigger value="assets">My Assets</TabsTrigger>
                     <TabsTrigger value="deposit">Deposit</TabsTrigger>
                   </TabsList>
-                </Tabs>
-              </CardHeader>
-              <CardContent className="px-6">
-                <TabsContent value="assets" className="mt-0">
-                  <div className="relative mb-4">
-                    <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                    <Input
-                      placeholder="Search assets"
-                      className="pl-10"
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                  </div>
-                  <ScrollArea className="h-[400px] pr-3">
-                    <div className="space-y-4">
-                      {filteredCryptos.map((crypto) => (
-                        <div
-                          key={crypto.id}
-                          className="flex items-center justify-between rounded-lg border bg-card p-4 transition-all hover:bg-muted/20"
-                        >
-                          <div className="flex items-center gap-3">
-                            <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-muted">
-                              <img
-                                src={crypto.logoUrl}
-                                alt={`${crypto.name} logo`}
-                                className="h-full w-full object-cover"
-                              />
-                            </div>
-                            <div>
-                              <p className="font-medium">{crypto.name}</p>
-                              <p className="text-sm text-muted-foreground">{crypto.symbol}</p>
-                            </div>
-                          </div>
-                          <div className="text-right">
-                            <p className="font-medium">{formatCrypto(crypto.balance)} {crypto.symbol}</p>
-                            <p className="text-sm text-muted-foreground">
-                              {formatCurrency(crypto.value)}
-                            </p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </ScrollArea>
-                </TabsContent>
-                <TabsContent value="deposit" className="mt-0 space-y-0">
-                  <div className="mb-6">
-                    <p className="text-sm text-muted-foreground">Select coin to deposit</p>
-                    <div className="relative mt-2">
+                
+                  {/* Move TabsContent here, inside the Tabs component */}
+                  <TabsContent value="assets" className="mt-4">
+                    <div className="relative mb-4">
                       <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                       <Input
-                        placeholder="Search coins"
+                        placeholder="Search assets"
                         className="pl-10"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
                       />
                     </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <div className="rounded-lg border bg-card p-4">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-muted">
-                          <img
-                            src="https://cryptologos.cc/logos/bitcoin-btc-logo.svg?v=025"
-                            alt="Bitcoin logo"
-                            className="h-full w-full object-cover"
-                          />
-                        </div>
-                        <div>
-                          <p className="font-medium">Bitcoin</p>
-                          <p className="text-sm text-muted-foreground">BTC</p>
-                        </div>
+                    <ScrollArea className="h-[400px] pr-3">
+                      <div className="space-y-4">
+                        {filteredCryptos.map((crypto) => (
+                          <div
+                            key={crypto.id}
+                            className="flex items-center justify-between rounded-lg border bg-card p-4 transition-all hover:bg-muted/20"
+                          >
+                            <div className="flex items-center gap-3">
+                              <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-muted">
+                                <img
+                                  src={crypto.logoUrl}
+                                  alt={`${crypto.name} logo`}
+                                  className="h-full w-full object-cover"
+                                />
+                              </div>
+                              <div>
+                                <p className="font-medium">{crypto.name}</p>
+                                <p className="text-sm text-muted-foreground">{crypto.symbol}</p>
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <p className="font-medium">{formatCrypto(crypto.balance)} {crypto.symbol}</p>
+                              <p className="text-sm text-muted-foreground">
+                                {formatCurrency(crypto.value)}
+                              </p>
+                            </div>
+                          </div>
+                        ))}
                       </div>
+                    </ScrollArea>
+                  </TabsContent>
+                  
+                  <TabsContent value="deposit" className="mt-4 space-y-0">
+                    <div className="mb-6">
+                      <p className="text-sm text-muted-foreground">Select coin to deposit</p>
+                      <div className="relative mt-2">
+                        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                        <Input
+                          placeholder="Search coins"
+                          className="pl-10"
+                        />
+                      </div>
+                    </div>
 
-                      <div className="mt-4">
-                        <p className="text-sm font-medium">BTC Deposit Address</p>
-                        <div className="mt-2 flex items-center justify-between rounded-md border bg-muted/50 px-3 py-2">
-                          <p className="font-mono text-xs text-muted-foreground">
-                            bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
+                    <div className="space-y-4">
+                      <div className="rounded-lg border bg-card p-4">
+                        <div className="flex items-center gap-3">
+                          <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-muted">
+                            <img
+                              src="https://cryptologos.cc/logos/bitcoin-btc-logo.svg?v=025"
+                              alt="Bitcoin logo"
+                              className="h-full w-full object-cover"
+                            />
+                          </div>
+                          <div>
+                            <p className="font-medium">Bitcoin</p>
+                            <p className="text-sm text-muted-foreground">BTC</p>
+                          </div>
+                        </div>
+
+                        <div className="mt-4">
+                          <p className="text-sm font-medium">BTC Deposit Address</p>
+                          <div className="mt-2 flex items-center justify-between rounded-md border bg-muted/50 px-3 py-2">
+                            <p className="font-mono text-xs text-muted-foreground">
+                              bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
+                            </p>
+                            <Button variant="ghost" size="icon" className="h-8 w-8">
+                              <Copy className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </div>
+
+                        <div className="mt-4">
+                          <p className="mb-2 text-sm text-muted-foreground">
+                            Minimum deposit amount: 0.0001 BTC
                           </p>
-                          <Button variant="ghost" size="icon" className="h-8 w-8">
-                            <Copy className="h-4 w-4" />
+                          <p className="text-sm text-muted-foreground">
+                            Expected arrival: 3 network confirmations
+                          </p>
+                        </div>
+
+                        <div className="mt-6">
+                          <p className="mb-2 text-sm text-muted-foreground">
+                            Network: Bitcoin (BTC)
+                          </p>
+                          <Button className="w-full bg-teal hover:bg-teal-dark">
+                            Generate QR Code
                           </Button>
                         </div>
                       </div>
-
-                      <div className="mt-4">
-                        <p className="mb-2 text-sm text-muted-foreground">
-                          Minimum deposit amount: 0.0001 BTC
-                        </p>
-                        <p className="text-sm text-muted-foreground">
-                          Expected arrival: 3 network confirmations
-                        </p>
-                      </div>
-
-                      <div className="mt-6">
-                        <p className="mb-2 text-sm text-muted-foreground">
-                          Network: Bitcoin (BTC)
-                        </p>
-                        <Button className="w-full bg-teal hover:bg-teal-dark">
-                          Generate QR Code
-                        </Button>
-                      </div>
                     </div>
-                  </div>
-                </TabsContent>
+                  </TabsContent>
+                </Tabs>
+              </CardHeader>
+              <CardContent className="px-6">
+                {/* Content moved inside Tabs component above */}
               </CardContent>
             </Card>
           </div>

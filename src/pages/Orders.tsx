@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Navbar } from "@/components/site/navbar";
 import { Footer } from "@/components/site/footer";
@@ -251,7 +250,7 @@ export default function Orders() {
             <TabsTrigger value="completed">Completed</TabsTrigger>
             <TabsTrigger value="cancelled">Cancelled/Disputed</TabsTrigger>
           </TabsList>
-          <TabsContent value={activeTab}>
+          <TabsContent value="all">
             <div className="space-y-4">
               {filteredOrders.length > 0 ? (
                 filteredOrders.map((order) => (
@@ -356,6 +355,360 @@ export default function Orders() {
                 <div className="flex h-60 items-center justify-center rounded-lg border bg-muted/20">
                   <div className="text-center">
                     <p className="text-muted-foreground">No orders found.</p>
+                    <div className="mt-4 flex justify-center gap-4">
+                      <Button variant="outline" asChild>
+                        <a href="/buy">Buy Crypto</a>
+                      </Button>
+                      <Button variant="outline" asChild>
+                        <a href="/sell">Sell Crypto</a>
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </TabsContent>
+          <TabsContent value="active">
+            <div className="space-y-4">
+              {filteredOrders.length > 0 ? (
+                filteredOrders.map((order) => (
+                  <Card key={order.id} className="overflow-hidden">
+                    <CardContent className="p-0">
+                      <div className="border-b p-6">
+                        <div className="flex flex-wrap items-center justify-between gap-4">
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm font-medium text-muted-foreground">
+                                Order ID:
+                              </span>
+                              <span className="font-mono text-sm">{order.id}</span>
+                            </div>
+                            <div className="mt-1 flex items-center gap-2">
+                              <Badge variant="outline" className="text-xs font-normal">
+                                {order.type === "buy" ? "Buying" : "Selling"}
+                              </Badge>
+                              <Badge variant="outline" className={getStatusColor(order.status)}>
+                                <span className="flex items-center gap-1">
+                                  {getStatusIcon(order.status)}
+                                  {getStatusText(order.status)}
+                                </span>
+                              </Badge>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-sm text-muted-foreground">
+                              Created: {formatDate(order.createdAt)}
+                            </p>
+                            {order.timeRemaining && (
+                              <p className="mt-1 flex items-center justify-end gap-1 text-xs text-yellow-500">
+                                <Clock className="h-3 w-3" />
+                                Time left: {order.timeRemaining}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="p-6">
+                        <div className="grid gap-6 md:grid-cols-3">
+                          <div>
+                            <p className="text-sm font-medium text-muted-foreground">Amount</p>
+                            <div className="mt-1">
+                              <p className="font-medium">
+                                {order.crypto.amount} {order.crypto.symbol}
+                              </p>
+                              <p className="text-sm text-muted-foreground">
+                                {formatCurrency(order.fiat.amount, order.fiat.currency)}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div>
+                            <p className="text-sm font-medium text-muted-foreground">
+                              {order.type === "buy" ? "Seller" : "Buyer"}
+                            </p>
+                            <div className="mt-1 flex items-center gap-1.5">
+                              <span className="font-medium">{order.counterparty.name}</span>
+                              {order.counterparty.isVerified && <BadgeVerified size="sm" />}
+                            </div>
+                            <p className="text-sm text-muted-foreground">
+                              Via {order.paymentMethod}
+                            </p>
+                          </div>
+
+                          <div className="flex items-end justify-end">
+                            {(order.status === "pending" || order.status === "processing") && (
+                              <div className="flex gap-2">
+                                <Button variant="outline" size="sm" className="gap-1">
+                                  <MessageSquare className="h-4 w-4" />
+                                  Chat
+                                </Button>
+                                <Button 
+                                  size="sm" 
+                                  className={order.type === "buy" ? "bg-teal hover:bg-teal-dark" : "bg-navy hover:bg-navy-light"}
+                                >
+                                  {order.type === "buy" 
+                                    ? (order.status === "pending" ? "Pay Now" : "Release Payment") 
+                                    : (order.status === "pending" ? "Upload Proof" : "Confirm Receipt")}
+                                </Button>
+                              </div>
+                            )}
+                            {order.status === "completed" && (
+                              <Button variant="outline" size="sm">
+                                View Details
+                              </Button>
+                            )}
+                            {(order.status === "cancelled" || order.status === "disputed") && (
+                              <Button variant="outline" size="sm">
+                                View Details
+                              </Button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))
+              ) : (
+                <div className="flex h-60 items-center justify-center rounded-lg border bg-muted/20">
+                  <div className="text-center">
+                    <p className="text-muted-foreground">No active orders found.</p>
+                    <div className="mt-4 flex justify-center gap-4">
+                      <Button variant="outline" asChild>
+                        <a href="/buy">Buy Crypto</a>
+                      </Button>
+                      <Button variant="outline" asChild>
+                        <a href="/sell">Sell Crypto</a>
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </TabsContent>
+          <TabsContent value="completed">
+            <div className="space-y-4">
+              {filteredOrders.length > 0 ? (
+                filteredOrders.map((order) => (
+                  <Card key={order.id} className="overflow-hidden">
+                    <CardContent className="p-0">
+                      <div className="border-b p-6">
+                        <div className="flex flex-wrap items-center justify-between gap-4">
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm font-medium text-muted-foreground">
+                                Order ID:
+                              </span>
+                              <span className="font-mono text-sm">{order.id}</span>
+                            </div>
+                            <div className="mt-1 flex items-center gap-2">
+                              <Badge variant="outline" className="text-xs font-normal">
+                                {order.type === "buy" ? "Buying" : "Selling"}
+                              </Badge>
+                              <Badge variant="outline" className={getStatusColor(order.status)}>
+                                <span className="flex items-center gap-1">
+                                  {getStatusIcon(order.status)}
+                                  {getStatusText(order.status)}
+                                </span>
+                              </Badge>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-sm text-muted-foreground">
+                              Created: {formatDate(order.createdAt)}
+                            </p>
+                            {order.timeRemaining && (
+                              <p className="mt-1 flex items-center justify-end gap-1 text-xs text-yellow-500">
+                                <Clock className="h-3 w-3" />
+                                Time left: {order.timeRemaining}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="p-6">
+                        <div className="grid gap-6 md:grid-cols-3">
+                          <div>
+                            <p className="text-sm font-medium text-muted-foreground">Amount</p>
+                            <div className="mt-1">
+                              <p className="font-medium">
+                                {order.crypto.amount} {order.crypto.symbol}
+                              </p>
+                              <p className="text-sm text-muted-foreground">
+                                {formatCurrency(order.fiat.amount, order.fiat.currency)}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div>
+                            <p className="text-sm font-medium text-muted-foreground">
+                              {order.type === "buy" ? "Seller" : "Buyer"}
+                            </p>
+                            <div className="mt-1 flex items-center gap-1.5">
+                              <span className="font-medium">{order.counterparty.name}</span>
+                              {order.counterparty.isVerified && <BadgeVerified size="sm" />}
+                            </div>
+                            <p className="text-sm text-muted-foreground">
+                              Via {order.paymentMethod}
+                            </p>
+                          </div>
+
+                          <div className="flex items-end justify-end">
+                            {(order.status === "pending" || order.status === "processing") && (
+                              <div className="flex gap-2">
+                                <Button variant="outline" size="sm" className="gap-1">
+                                  <MessageSquare className="h-4 w-4" />
+                                  Chat
+                                </Button>
+                                <Button 
+                                  size="sm" 
+                                  className={order.type === "buy" ? "bg-teal hover:bg-teal-dark" : "bg-navy hover:bg-navy-light"}
+                                >
+                                  {order.type === "buy" 
+                                    ? (order.status === "pending" ? "Pay Now" : "Release Payment") 
+                                    : (order.status === "pending" ? "Upload Proof" : "Confirm Receipt")}
+                                </Button>
+                              </div>
+                            )}
+                            {order.status === "completed" && (
+                              <Button variant="outline" size="sm">
+                                View Details
+                              </Button>
+                            )}
+                            {(order.status === "cancelled" || order.status === "disputed") && (
+                              <Button variant="outline" size="sm">
+                                View Details
+                              </Button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))
+              ) : (
+                <div className="flex h-60 items-center justify-center rounded-lg border bg-muted/20">
+                  <div className="text-center">
+                    <p className="text-muted-foreground">No completed orders found.</p>
+                    <div className="mt-4 flex justify-center gap-4">
+                      <Button variant="outline" asChild>
+                        <a href="/buy">Buy Crypto</a>
+                      </Button>
+                      <Button variant="outline" asChild>
+                        <a href="/sell">Sell Crypto</a>
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </TabsContent>
+          <TabsContent value="cancelled">
+            <div className="space-y-4">
+              {filteredOrders.length > 0 ? (
+                filteredOrders.map((order) => (
+                  <Card key={order.id} className="overflow-hidden">
+                    <CardContent className="p-0">
+                      <div className="border-b p-6">
+                        <div className="flex flex-wrap items-center justify-between gap-4">
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm font-medium text-muted-foreground">
+                                Order ID:
+                              </span>
+                              <span className="font-mono text-sm">{order.id}</span>
+                            </div>
+                            <div className="mt-1 flex items-center gap-2">
+                              <Badge variant="outline" className="text-xs font-normal">
+                                {order.type === "buy" ? "Buying" : "Selling"}
+                              </Badge>
+                              <Badge variant="outline" className={getStatusColor(order.status)}>
+                                <span className="flex items-center gap-1">
+                                  {getStatusIcon(order.status)}
+                                  {getStatusText(order.status)}
+                                </span>
+                              </Badge>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-sm text-muted-foreground">
+                              Created: {formatDate(order.createdAt)}
+                            </p>
+                            {order.timeRemaining && (
+                              <p className="mt-1 flex items-center justify-end gap-1 text-xs text-yellow-500">
+                                <Clock className="h-3 w-3" />
+                                Time left: {order.timeRemaining}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="p-6">
+                        <div className="grid gap-6 md:grid-cols-3">
+                          <div>
+                            <p className="text-sm font-medium text-muted-foreground">Amount</p>
+                            <div className="mt-1">
+                              <p className="font-medium">
+                                {order.crypto.amount} {order.crypto.symbol}
+                              </p>
+                              <p className="text-sm text-muted-foreground">
+                                {formatCurrency(order.fiat.amount, order.fiat.currency)}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div>
+                            <p className="text-sm font-medium text-muted-foreground">
+                              {order.type === "buy" ? "Seller" : "Buyer"}
+                            </p>
+                            <div className="mt-1 flex items-center gap-1.5">
+                              <span className="font-medium">{order.counterparty.name}</span>
+                              {order.counterparty.isVerified && <BadgeVerified size="sm" />}
+                            </div>
+                            <p className="text-sm text-muted-foreground">
+                              Via {order.paymentMethod}
+                            </p>
+                          </div>
+
+                          <div className="flex items-end justify-end">
+                            {(order.status === "pending" || order.status === "processing") && (
+                              <div className="flex gap-2">
+                                <Button variant="outline" size="sm" className="gap-1">
+                                  <MessageSquare className="h-4 w-4" />
+                                  Chat
+                                </Button>
+                                <Button 
+                                  size="sm" 
+                                  className={order.type === "buy" ? "bg-teal hover:bg-teal-dark" : "bg-navy hover:bg-navy-light"}
+                                >
+                                  {order.type === "buy" 
+                                    ? (order.status === "pending" ? "Pay Now" : "Release Payment") 
+                                    : (order.status === "pending" ? "Upload Proof" : "Confirm Receipt")}
+                                </Button>
+                              </div>
+                            )}
+                            {order.status === "completed" && (
+                              <Button variant="outline" size="sm">
+                                View Details
+                              </Button>
+                            )}
+                            {(order.status === "cancelled" || order.status === "disputed") && (
+                              <Button variant="outline" size="sm">
+                                View Details
+                              </Button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))
+              ) : (
+                <div className="flex h-60 items-center justify-center rounded-lg border bg-muted/20">
+                  <div className="text-center">
+                    <p className="text-muted-foreground">No cancelled orders found.</p>
                     <div className="mt-4 flex justify-center gap-4">
                       <Button variant="outline" asChild>
                         <a href="/buy">Buy Crypto</a>
